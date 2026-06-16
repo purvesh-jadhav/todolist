@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To DO List App </title>
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2f;
+        }
+
+        .container{
+            width: 500px;
+            margin: 50px auto;
+            background-color: #2a2a40;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        h1{
+            text-align: center;
+            color: white;
+        }
+
+        input{
+            width: 300px;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            background-color: #3b3b58;
+            color: white;
+            outline: none;
+        }
+
+       
+
+        .addBtn{
+            padding: 10px 15px;
+            background-color: #6c63ff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+       
+        ul{
+            list-style: none;
+            padding: 0;
+        }
+
+        li{
+            background-color: #3b3b58;
+            color: white;
+            padding: 15px;
+            margin-top: 12px;
+            border-radius: 10px;
+        }
+
+        .updateBtn{
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+
+        
+
+        .deleteBtn{
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            margin-left: 5px;
+            font-weight: bold;
+        }
+
+        
+
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>To Do List App</h1>
+
+        <input
+            type="text"
+            id="taskInput"
+            placeholder="Enter your task">
+
+        <button
+            class="addBtn"
+            onclick="addTask()">
+            Add Task
+        </button>
+
+        <ul id="taskList"></ul>
+
+    </div>
+
+    <script>
+
+        var tasks = [];
+
+        const addTask = () =>
+        {
+            var input =
+            document.getElementById("taskInput");
+
+            if(input.value == "")
+            {
+                alert("Please enter a task");
+                return;
+            }
+
+            tasks.push(input.value);
+
+            input.value = "";
+
+            displayTasks();
+        }
+
+        const displayTasks = () =>
+        {
+            var list =
+            document.getElementById("taskList");
+
+            list.innerHTML = "";
+
+            tasks.forEach((task,index) =>
+            {
+                list.innerHTML +=
+                "<li>"
+                + (index + 1)
+                + ". "
+                + task
+
+                + "<button class='updateBtn' onclick='updateTask("
+                + index
+                + ")'>Update</button>"
+
+                + "<button class='deleteBtn' onclick='deleteTask("
+                + index
+                + ")'>Delete</button>"
+
+                + "</li>";
+            });
+        }
+
+        const updateTask = (index) =>
+        {
+            var newTask =
+            prompt("Update Task", tasks[index]);
+
+            if(newTask != null && newTask != "")
+            {
+                tasks[index] = newTask;
+
+                displayTasks();
+            }
+        }
+
+        const deleteTask = (index) =>
+        {
+            tasks = tasks.filter((task,i) =>
+            {
+                return i != index;
+            });
+
+            displayTasks();
+        }
+
+    </script>
+
+</body>
+</html>
